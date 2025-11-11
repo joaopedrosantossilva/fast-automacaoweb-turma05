@@ -2,29 +2,47 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>QA Bank</title>
+    <title>QA Bank (IDs Dinâmicos)</title>
     
     <style>
         :root {
-            --primary-color: #004d99; --secondary-color: #007bff; --success-color: #28a745; 
-            --danger-color: #dc3545; --text-dark: #343a3f; --background-light: #f4f7f9;
-            --card-background: #ffffff; --border-radius: 8px; --box-shadow-soft: 0 6px 16px rgba(0, 0, 0, 0.1);
+            --primary-color: #004d99;
+            --secondary-color: #007bff;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --text-dark: #343a3f;
+            --background-light: #f4f7f9;
+            --card-background: #ffffff;
+            --border-radius: 8px;
+            --box-shadow-soft: 0 6px 16px rgba(0, 0, 0, 0.1);
         }
+
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background-light); padding: 30px; display: flex;
-            justify-content: center; align-items: flex-start; min-height: 100vh; margin: 0;
+            background-color: var(--background-light);
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
         }
+
         /* --- Layout de Autenticação --- */
-        .auth-container { width: 100%; max-width: 400px; }
-        
+        .auth-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
         /* --- Layout da App Logada (Web App) --- */
         .app-container {
             width: 100%;
-            max-width: 900px; /* Largura de "Web App" */
+            max-width: 900px;
+            /* Largura de "Web App" */
             display: flex;
             gap: 30px;
         }
+
         .app-sidebar {
             width: 220px;
             background-color: var(--card-background);
@@ -33,27 +51,47 @@
             padding: 20px;
             height: fit-content;
         }
+
         .app-main-content {
-            flex: 1; /* Ocupa o espaço restante */
+            flex: 1;
+            /* Ocupa o espaço restante */
         }
+
         /* --- Fim do Layout da App --- */
 
         .card {
-            background-color: var(--card-background); padding: 30px; border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow-soft); margin-bottom: 25px;
+            background-color: var(--card-background);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow-soft);
+            margin-bottom: 25px;
         }
+
         h1 {
-            color: var(--primary-color); text-align: center; margin-bottom: 30px;
-            font-size: 2rem; width: 100%; max-width: 900px;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            width: 100%;
+            max-width: 900px;
         }
+
         h2 {
-            color: var(--text-dark); font-size: 1.5rem; margin-bottom: 20px;
-            padding-bottom: 10px; border-bottom: 1px solid #e9ecef; font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e9ecef;
+            font-weight: 600;
         }
+
         h3 {
-             color: var(--text-dark); font-size: 1.2rem; margin-top: 15px; margin-bottom: 10px;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            margin-top: 15px;
+            margin-bottom: 10px;
         }
-        
+
         /* --- Navegação da Sidebar --- */
         .nav-link {
             display: block;
@@ -66,69 +104,202 @@
             margin-bottom: 8px;
             transition: background-color 0.2s;
         }
+
         .nav-link:hover {
             background-color: #f1f1f1;
         }
+
         .nav-link.active {
             background-color: var(--secondary-color);
             color: white;
         }
+
         .sidebar-footer {
             border-top: 1px solid #e9ecef;
             padding-top: 15px;
             margin-top: 15px;
         }
+
         /* --- Fim da Navegação --- */
 
-        .form-group { margin-bottom: 15px; }
-        label {
-            display: block; margin-bottom: 5px; font-weight: 500;
-            color: var(--text-dark); font-size: 0.95rem;
+        .form-group {
+            margin-bottom: 15px;
         }
-        input[type="email"], input[type="password"], input[type="text"], input[type="number"], select {
-            width: 100%; padding: 12px; border: 1px solid #ced4da;
-            border-radius: var(--border-radius); box-sizing: border-box; font-size: 1rem;
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            font-size: 1rem;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
-        input:focus, select:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); outline: none;
+        
+        /* Classe genérica de formulário (ARMADILHA) */
+        .form-control {
+             border-left: 3px solid #ced4da;
         }
-        input.invalid, select.invalid {
+
+        input:focus,
+        select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        input.invalid,
+        select.invalid {
             border-color: var(--danger-color);
             box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
         }
-        .form-input-valor { border-left: 4px solid var(--danger-color); }
+
+        .form-input-valor {
+            border-left: 4px solid var(--danger-color);
+        }
+
         .btn {
-            padding: 12px 20px; border: none; border-radius: var(--border-radius);
-            cursor: pointer; font-size: 1rem; font-weight: bold;
-            transition: background-color 0.3s, opacity 0.3s; margin-right: 10px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s, opacity 0.3s;
+            margin-right: 10px;
         }
-        .btn:disabled { background-color: #ced4da; cursor: not-allowed; opacity: 0.7; }
-        .btn-primary { background-color: var(--secondary-color); color: white; }
-        .btn-success { background-color: var(--success-color); color: white; }
-        .btn-danger { background-color: var(--danger-color); color: white; }
-        .btn-secondary { background-color: #6c757d; color: white; }
-        .btn:hover:not(:disabled) { opacity: 0.9; }
-        .btn-block { width: 100%; margin-right: 0; margin-bottom: 10px; }
+
+        .btn:disabled {
+            background-color: #ced4da;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
         .message {
-            padding: 12px; margin-top: 15px; border-radius: var(--border-radius);
-            font-weight: 600; font-size: 0.9rem;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
         }
+
         .inline-error {
-            color: var(--danger-color); font-size: 0.8rem; font-weight: 500;
-            margin-top: 3px; height: 1.2em;
+            color: var(--danger-color);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 3px;
+            height: 1.2em;
         }
-        .error { background-color: #f8d7da; color: var(--danger-color); border: 1px solid var(--danger-color); }
-        .success { background-color: #d4edda; color: var(--success-color); border: 1px solid var(--success-color); }
+
+        .error {
+            background-color: #f8d7da;
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
         .balance-box {
-            background-color: var(--primary-color); color: white; padding: 20px;
-            border-radius: var(--border-radius); margin-bottom: 25px; font-size: 1.1em;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            font-size: 1.1em;
         }
-        .balance-box strong { display: block; font-size: 1.6rem; margin-top: 5px; }
-        .balance-box small { opacity: 0.8; font-size: 0.9em; }
+
+        .balance-box strong {
+            display: block;
+            font-size: 1.6rem;
+            margin-top: 5px;
+        }
+
+        .balance-box small {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
     </style>
-</head>
+
+    <script>
+        function generateRandomId(prefix) {
+            // Gera um ID aleatório, ex: "email_k29d1j0"
+            return prefix + '_' + Math.random().toString(36).substring(2, 9);
+        }
+
+        // Esta função IIFE (Immediately Invoked Function Expression) roda *antes* de tudo.
+        (function scrambleIds() {
+            // Lista de IDs estáticos do HTML que queremos "quebrar"
+            const idsToScramble = [
+                'email-input', 'password-input', 'btn-login', 'login-message',
+                'register-name-input', 'register-email-input', 'register-password-input',
+                'register-sexo-select', 'btn-register-submit', 'register-message',
+                'user-name-display', 'account-number-display', 'balance-total-value',
+                'saque-valor-input', 'transfer-destino-input', 'transfer-valor-input', 
+                'deposito-valor-input'
+            ];
+            
+            // Adiciona um listener que roda assim que o DOM estiver pronto
+            document.addEventListener('DOMContentLoaded', () => {
+                console.warn('*** SIMULAÇÃO: Randomizando IDs para a aula de automação... ***');
+                idsToScramble.forEach(staticId => {
+                    const el = document.getElementById(staticId);
+                    if (el) {
+                        const prefix = staticId.split('-')[0]; // Pega o prefixo (ex: "email")
+                        const newId = generateRandomId(prefix);
+                        el.id = newId; // Substitui o ID estático por um dinâmico
+                    }
+                });
+                console.warn('*** IDs randomizados. Use [data-cy] ou [name]! ***');
+            });
+        })();
+    </script>
+    </head>
 <body>
     
     <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
@@ -140,15 +311,15 @@
                     <h2>Acesso à Conta</h2>
                     <div class="form-group">
                         <label for="email-input">Email:</label>
-                        <input type="email" id="email-input" data-cy="input-login-email" placeholder="seu.email@qa.com">
+                        <input type="email" id="email-input" class="form-control" data-cy="input-login-email" name="email" placeholder="seu.email@qa.com">
                     </div>
                     <div class="form-group">
                         <label for="password-input">Senha:</label>
-                        <input type="password" id="password-input" data-cy="input-login-password" placeholder="********">
+                        <input type="password" id="password-input" class="form-control" data-cy="input-login-password" name="password" placeholder="********">
                     </div>
-                    <button class="btn btn-primary btn-block" onclick="login()" data-cy="btn-login" id="btn-login" disabled>Entrar</button>
-                    <button class="btn btn-success btn-block" onclick="showRegister(true)" data-cy="btn-toggle-register">Quero Criar uma Conta</button>
-                    <p id="login-message" class="message" role="alert" style="display: none;"></p>
+                    <button class="btn btn-primary btn-block" onclick="login()" data-cy="btn-login" id="btn-login" name="submit_button" disabled>Entrar</button>
+                    <button class="btn btn-success btn-block" onclick="showRegister(true)" data-cy="btn-toggle-register" name="toggle_register">Quero Criar uma Conta</button>
+                    <p id="login-message" class="message" role="alert" style="display: none;" data-cy="login-message"></p>
                 </div>
             </div>
             <div id="register-card" data-cy="register-card" style="display: none;">
@@ -156,32 +327,32 @@
                     <h2>Criar Nova Conta</h2>
                     <div class="form-group">
                         <label for="register-name-input">Nome Completo:</label>
-                        <input type="text" id="register-name-input" data-cy="input-register-name" placeholder="Seu nome">
-                        <small id="name-error-msg" class="inline-error"></small>
+                        <input type="text" id="register-name-input" class="form-control" data-cy="input-register-name" name="full_name" placeholder="Seu nome">
+                        <small class="inline-error" data-cy="error-message-name"></small>
                     </div>
                     <div class="form-group">
                         <label for="register-email-input">Email:</label>
-                        <input type="email" id="register-email-input" data-cy="input-register-email" placeholder="email@unico.com">
-                        <small id="email-error-msg" class="inline-error"></small>
+                        <input type="email" id="register-email-input" class="form-control" data-cy="input-register-email" name="new_email" placeholder="email@unico.com">
+                        <small class="inline-error" data-cy="error-message-email"></small>
                     </div>
                     <div class="form-group">
                         <label for="register-password-input">Senha:</label>
-                        <input type="password" id="register-password-input" data-cy="input-register-password" placeholder="Mínimo 6 caracteres">
-                        <small id="password-error-msg" class="inline-error"></small>
+                        <input type="password" id="register-password-input" class="form-control" data-cy="input-register-password" name="new_password" placeholder="Mínimo 6 caracteres">
+                        <small class="inline-error" data-cy="error-message-password"></small>
                     </div>
                     <div class="form-group">
                         <label for="register-sexo-select">Sexo:</label>
-                        <select id="register-sexo-select" data-cy="select-register-sexo">
+                        <select id="register-sexo-select" class="form-control" data-cy="select-register-sexo" name="sex">
                             <option value="">Selecione</option>
                             <option value="MASCULINO">Masculino</option>
                             <option value="FEMININO">Feminino</option>
                             <option value="OUTRO">Outro / Prefiro não dizer</option>
                         </select>
-                        <small id="sexo-error-msg" class="inline-error"></small>
+                        <small class="inline-error" data-cy="error-message-sexo"></small>
                     </div>
-                    <button class="btn btn-success btn-block" onclick="register()" data-cy="btn-register-submit" id="btn-register-submit" disabled>Salvar Cadastro</button>
+                    <button class="btn btn-success btn-block" onclick="register()" data-cy="btn-register-submit" id="btn-register-submit" name="create_user_button" disabled>Salvar Cadastro</button>
                     <button class="btn btn-block" onclick="showRegister(false)" data-cy="btn-toggle-login">Voltar para Login</button>
-                    <p id="register-message" class="message" role="alert" style="display: none;"></p>
+                    <p id="register-message" class="message" role="alert" style="display: none;" data-cy="register-message"></p>
                 </div>
             </div>
         </div>
@@ -196,17 +367,40 @@
                     <a href="#" id="nav-transfer" class="nav-link" onclick="showView('transfer-view')" data-cy="nav-transferencia">🔄 Transferência</a>
                 </nav>
                 <div class="sidebar-footer">
-                    <button class="btn btn-block" data-cy="btn-logout" onclick="logout()">Sair</button>
+                     <button class="btn btn-block" data-cy="btn-logout" name="logout" onclick="logout()">Sair</button>
                 </div>
             </div>
 
             <div class="app-main-content">
                 
                 <div class="balance-box">
-                    Olá, <span id="user-name-display" data-cy="user-name-display"></span>
-                    <small>Conta: <span id="account-number-display" data-cy="account-number-display"></span></small>
+                    Olá, 
+                    <span 
+                      id="user-name-display" 
+                      class="user-profile-name greeting" 
+                      name="user_name_text" 
+                      data-cy="user-name-display"
+                    ></span>
+                    
+                    <small>Conta: 
+                      <span 
+                        id="account-number-display" 
+                        class="account-detail" 
+                        name="account_number" 
+                        data-cy="account-number-display"
+                      ></span>
+                    </small>
+                    
                     <p>Saldo em Conta:</p>
-                    <strong data-cy="saldo-atual">R$ <span id="account-balance">0,00</span></strong>
+                    
+                     <strong 
+                      id="balance-total-value" 
+                      class="balance-highlight" 
+                      name="balance_total" 
+                      data-cy="saldo-atual"
+                    >
+                      R$ <span id="account-balance">0,00</span>
+                    </strong>
                 </div>
 
                 <div id="home-view" class="view-container" data-cy="home-view" style="display: none;">
@@ -278,7 +472,8 @@
             
             if (!users[adminEmail]) {
                 const adminUser = {
-                    password: "admin",
+                    // ATUALIZADO: Senha com 6 dígitos
+                    password: "admin123", 
                     name: "Admin do Sistema",
                     sexo: "OUTRO",
                     accountNumber: "000001",
@@ -291,7 +486,14 @@
                 balances[adminUser.accountNumber] = 999999.00;
                 localStorage.setItem(LOCAL_STORAGE_BALANCE, JSON.stringify(balances));
                 
-                console.log('*** USUÁRIO ADMIN [admin@qabank.com / admin] CRIADO COM SUCESSO ***');
+                console.log('*** USUÁRIO ADMIN [admin@qabank.com / admin123] CRIADO COM SUCESSO ***');
+            } else {
+                 // Garante que a senha do admin esteja correta (6 dígitos)
+                if (users[adminEmail].password !== "admin123") {
+                    users[adminEmail].password = "admin123";
+                    localStorage.setItem(LOCAL_STORAGE_USERS, JSON.stringify(users));
+                    console.log('*** SENHA DO ADMIN ATUALIZADA PARA 6 DÍGITOS (admin123) ***');
+                }
             }
         })();
 
@@ -329,19 +531,25 @@
 
 
         // --- Funções de Validação de Formulário (Encapsuladas) ---
+        // ATUALIZADO: Funções agora usam data-cy para não quebrarem com a randomização de IDs
         (function() {
+            
+            // ATENÇÃO: Funções internas que usam o SELETOR ESTÁVEL (data-cy)
+            const getEl = (cySelector) => document.querySelector(`[data-cy="${cySelector}"]`);
+            const getErrorEl = (cySelector) => document.querySelector(`[data-cy="error-message-${cySelector.split('-').pop()}"]`);
+
             function validateLoginFields() {
-                const email = document.getElementById('email-input').value;
-                const password = document.getElementById('password-input').value;
-                const loginButton = document.getElementById('btn-login');
+                const email = getEl('input-login-email').value;
+                const password = getEl('input-login-password').value;
+                const loginButton = getEl('btn-login');
                 loginButton.disabled = !(email.trim().length > 0 && password.trim().length > 0);
             }
             function checkRegisterButtonState() {
-                const name = document.getElementById('register-name-input').value;
-                const email = document.getElementById('register-email-input').value;
-                const password = document.getElementById('register-password-input').value;
-                const sexo = document.getElementById('register-sexo-select').value;
-                const registerButton = document.getElementById('btn-register-submit');
+                const name = getEl('input-register-name').value;
+                const email = getEl('input-register-email').value;
+                const password = getEl('input-register-password').value;
+                const sexo = getEl('select-register-sexo').value;
+                const registerButton = getEl('btn-register-submit');
                 registerButton.disabled = !(name.trim().length > 0 && email.trim().length > 0 && password.trim().length > 0 && sexo !== "");
             }
             function validateField(field, errorEl, check) {
@@ -360,31 +568,34 @@
             window.validateLoginFields = validateLoginFields;
             window.checkRegisterButtonState = checkRegisterButtonState;
             window.validateNameOnBlur = () => validateField(
-                document.getElementById('register-name-input'),
-                document.getElementById('name-error-msg'),
+                getEl('input-register-name'),
+                getErrorEl('input-register-name'),
                 (value) => value.trim().length > 0
             );
             window.validateEmailOnBlur = () => {
-                document.getElementById('register-email-input').dataset.errorMessage = "Formato de email inválido.";
+                const el = getEl('input-register-email');
+                el.dataset.errorMessage = "Formato de email inválido.";
                 return validateField(
-                    document.getElementById('register-email-input'),
-                    document.getElementById('email-error-msg'),
+                    el,
+                    getErrorEl('input-register-email'),
                     (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
                 );
             };
             window.validatePasswordOnBlur = () => {
-                document.getElementById('register-password-input').dataset.errorMessage = "A senha deve ter no mínimo 6 caracteres.";
+                const el = getEl('input-register-password');
+                el.dataset.errorMessage = "A senha deve ter no mínimo 6 caracteres.";
                 return validateField(
-                    document.getElementById('register-password-input'),
-                    document.getElementById('password-error-msg'),
+                    el,
+                    getErrorEl('input-register-password'),
                     (value) => value.trim().length >= 6
                 );
             };
             window.validateSexoOnBlur = () => {
-                document.getElementById('register-sexo-select').dataset.errorMessage = "Por favor, selecione o sexo.";
+                const el = getEl('select-register-sexo');
+                el.dataset.errorMessage = "Por favor, selecione o sexo.";
                 return validateField(
-                    document.getElementById('register-sexo-select'),
-                    document.getElementById('sexo-error-msg'),
+                    el,
+                    getErrorEl('select-register-sexo'),
                     (value) => value !== ""
                 );
             };
@@ -403,6 +614,8 @@
                 msg.textContent = '';
             });
 
+            // ATENÇÃO: Essas views ainda usam ID estático. 
+            // Para a aula de LOGIN, isso não é um problema.
             const view = document.getElementById(viewId);
             if (view) {
                 view.style.display = 'block';
@@ -411,6 +624,8 @@
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
             });
+            
+            // O ID dos links de navegação também são estáticos
             const activeLink = document.getElementById(`nav-${viewId.split('-')[0]}`);
             if (activeLink) {
                 activeLink.classList.add('active');
@@ -418,34 +633,38 @@
         }
 
         function showRegister(show) {
-            const loginCard = document.getElementById('login-card');
-            const registerCard = document.getElementById('register-card');
+            // ATUALIZADO: Usa seletores estáveis
+            const loginCard = document.querySelector('[data-cy="login-card"]');
+            const registerCard = document.querySelector('[data-cy="register-card"]');
             
             if (show) {
                 loginCard.style.display = 'none';
                 registerCard.style.display = 'block';
-                document.getElementById('register-message').style.display = 'none';
+                document.querySelector('[data-cy="register-message"]').style.display = 'none';
                 
-                const fields = ['register-name-input', 'register-email-input', 'register-password-input'];
-                fields.forEach(id => {
-                    document.getElementById(id).value = '';
-                    document.getElementById(id).classList.remove('invalid');
+                const fields = ['input-register-name', 'input-register-email', 'input-register-password'];
+                fields.forEach(cyId => {
+                    document.querySelector(`[data-cy="${cyId}"]`).value = '';
+                    document.querySelector(`[data-cy="${cyId}"]`).classList.remove('invalid');
                 });
-                document.getElementById('register-sexo-select').value = '';
-                document.getElementById('register-sexo-select').classList.remove('invalid');
+                document.querySelector('[data-cy="select-register-sexo"]').value = '';
+                document.querySelector('[data-cy="select-register-sexo"]').classList.remove('invalid');
                 
-                const errors = ['name-error-msg', 'email-error-msg', 'password-error-msg', 'sexo-error-msg'];
-                errors.forEach(id => document.getElementById(id).textContent = '');
+                const errors = ['error-message-name', 'error-message-email', 'error-message-password', 'error-message-sexo'];
+                errors.forEach(cyId => {
+                    const errorEl = document.querySelector(`[data-cy="${cyId}"]`);
+                    if(errorEl) errorEl.textContent = '';
+                });
                 
                 checkRegisterButtonState();
 
             } else {
                 loginCard.style.display = 'block';
                 registerCard.style.display = 'none';
-                document.getElementById('login-message').style.display = 'none';
+                document.querySelector('[data-cy="login-message"]').style.display = 'none';
                 
-                document.getElementById('email-input').value = '';
-                document.getElementById('password-input').value = '';
+                document.querySelector('[data-cy="input-login-email"]').value = '';
+                document.querySelector('[data-cy="input-login-password"]').value = '';
                 
                 validateLoginFields();
             }
@@ -458,9 +677,10 @@
             const authContainer = document.getElementById('auth-container');
             const appSection = document.getElementById('app');
             
-            const balanceSpan = document.getElementById('account-balance');
-            const nameSpan = document.getElementById('user-name-display');
-            const accountSpan = document.getElementById('account-number-display');
+            // ATUALIZADO: Usa seletores estáveis
+            const balanceSpan = document.getElementById('account-balance'); // Este ID é estável
+            const nameSpan = document.querySelector('[data-cy="user-name-display"]');
+            const accountSpan = document.querySelector('[data-cy="account-number-display"]');
 
             if (token && userAccount) {
                 authContainer.style.display = 'none';
@@ -477,11 +697,6 @@
                     logout();
                     return;
                 }
-                
-                document.getElementById('saque-valor-input').value = '';
-                document.getElementById('transfer-destino-input').value = '';
-                document.getElementById('transfer-valor-input').value = '';
-                document.getElementById('deposito-valor-input').value = '';
 
                 showView('home-view');
 
@@ -489,8 +704,8 @@
                 authContainer.style.display = 'block';
                 appSection.style.display = 'none';
                 
-                document.getElementById('email-input').value = '';
-                document.getElementById('password-input').value = '';
+                document.querySelector('[data-cy="input-login-email"]').value = '';
+                document.querySelector('[data-cy="input-login-password"]').value = '';
 
                 showRegister(false); 
             }
@@ -498,15 +713,20 @@
 
         // --- Ações da Aplicação (Event Handlers) ---
         (function() { // Funções encapsuladas
+            
+            // ATUALIZADO: Funções internas que usam o SELETOR ESTÁVEL (data-cy)
+            const getEl = (cySelector) => document.querySelector(`[data-cy="${cySelector}"]`);
+            
             function register() {
-                const msgEl = document.getElementById('register-message');
+                // *** CORREÇÃO: Busca o elemento de mensagem pelo data-cy ***
+                const msgEl = getEl('register-message');
                 msgEl.style.display = 'none';
                 if (!validateNameOnBlur() || !validateEmailOnBlur() || !validatePasswordOnBlur() || !validateSexoOnBlur()) return;
                 
-                const name = document.getElementById('register-name-input').value;
-                const email = document.getElementById('register-email-input').value;
-                const password = document.getElementById('register-password-input').value;
-                const sexo = document.getElementById('register-sexo-select').value;
+                const name = getEl('input-register-name').value;
+                const email = getEl('input-register-email').value;
+                const password = getEl('input-register-password').value;
+                const sexo = getEl('select-register-sexo').value;
                 msgEl.className = 'message error';
 
                 const users = getUsers();
@@ -527,16 +747,17 @@
                 msgEl.style.display = 'block';
                 msgEl.textContent = `Conta criada com sucesso! Seu Número de Conta é: ${accountNumber}. Volte para o Login.`;
                 
-                document.getElementById('register-name-input').value = '';
-                document.getElementById('register-email-input').value = '';
-                document.getElementById('register-password-input').value = '';
-                document.getElementById('register-sexo-select').value = '';
+                getEl('input-register-name').value = '';
+                getEl('input-register-email').value = '';
+                getEl('input-register-password').value = '';
+                getEl('select-register-sexo').value = '';
                 checkRegisterButtonState(); 
             }
             function login() {
-                const email = document.getElementById('email-input').value;
-                const password = document.getElementById('password-input').value;
-                const msgEl = document.getElementById('login-message');
+                const email = getEl('input-login-email').value;
+                const password = getEl('input-login-password').value;
+                // *** CORREÇÃO: Busca o elemento de mensagem pelo data-cy ***
+                const msgEl = getEl('login-message');
                 msgEl.className = 'message error';
                 msgEl.style.display = 'block';
                 const users = getUsers();
@@ -560,7 +781,9 @@
             }
             function saque() {
                 const userAccount = localStorage.getItem('authUserAccountNumber');
-                const valor = parseFloat(document.getElementById('saque-valor-input').value);
+                // ATENÇÃO: Esses IDs são randomizados. O app real precisaria de data-cy aqui também.
+                // Para a aula de LOGIN, não vamos nos preocupar com essas funções.
+                const valor = parseFloat(document.querySelector('[id^="saque_"]').value);
                 const msgEl = document.getElementById('saque-message');
                 msgEl.className = 'message error';
                 msgEl.style.display = 'block';
@@ -573,15 +796,15 @@
                     msgEl.className = 'message success';
                     msgEl.textContent = `Saque de R$ ${valor.toFixed(2).replace('.', ',')} realizado com sucesso.`;
                     updateUI();
-                    document.getElementById('saque-valor-input').value = '';
+                    document.querySelector('[id^="saque_"]').value = '';
                 } else {
                     msgEl.textContent = 'Saldo insuficiente para esta operação.';
                 }
             }
             function transfer() {
                 const origemAccount = localStorage.getItem('authUserAccountNumber');
-                const destinoAccount = document.getElementById('transfer-destino-input').value;
-                const valor = parseFloat(document.getElementById('transfer-valor-input').value);
+                const destinoAccount = document.querySelector('[id^="transfer_destino"]').value;
+                const valor = parseFloat(document.querySelector('[id^="transfer_valor"]').value);
                 const msgEl = document.getElementById('transfer-message');
                 msgEl.className = 'message error';
                 msgEl.style.display = 'block';
@@ -600,8 +823,8 @@
                     msgEl.className = 'message success';
                     msgEl.textContent = `Transferência de R$ ${valor.toFixed(2).replace('.', ',')} para a conta ${destinoAccount} concluída.`;
                     updateUI();
-                    document.getElementById('transfer-destino-input').value = '';
-                    document.getElementById('transfer-valor-input').value = '';
+                    document.querySelector('[id^="transfer_destino"]').value = '';
+                    document.querySelector('[id^="transfer_valor"]').value = '';
                 } else {
                     msgEl.textContent = 'Saldo insuficiente para realizar a transferência.';
                 }
@@ -616,7 +839,7 @@
         
         function deposito() {
             const userAccount = localStorage.getItem('authUserAccountNumber');
-            const valor = parseFloat(document.getElementById('deposito-valor-input').value);
+            const valor = parseFloat(document.querySelector('[id^="deposito_"]').value);
             const msgEl = document.getElementById('deposito-message');
             msgEl.className = 'message error';
             msgEl.style.display = 'block';
@@ -638,31 +861,29 @@
             msgEl.className = 'message success';
             msgEl.textContent = `Depósito de R$ ${valor.toFixed(2).replace('.', ',')} realizado com sucesso.`;
             updateUI();
-            document.getElementById('deposito-valor-input').value = '';
+            document.querySelector('[id^="deposito_"]').value = '';
         }
         
         // --- Inicialização da Aplicação ---
         
-        // --- INÍCIO DA CORREÇÃO ---
         function initValidationListeners() {
             
-            // Listeners do Login (agora chamando a função no "window")
-            document.getElementById('email-input').addEventListener('input', window.validateLoginFields);
-            document.getElementById('password-input').addEventListener('input', window.validateLoginFields);
+            // Listeners do Login
+            document.querySelector('[data-cy="input-login-email"]').addEventListener('input', window.validateLoginFields);
+            document.querySelector('[data-cy="input-login-password"]').addEventListener('input', window.validateLoginFields);
             
             // Listeners do Cadastro (Habilita botão)
-            document.getElementById('register-name-input').addEventListener('input', window.checkRegisterButtonState);
-            document.getElementById('register-email-input').addEventListener('input', window.checkRegisterButtonState);
-            document.getElementById('register-password-input').addEventListener('input', window.checkRegisterButtonState);
-            document.getElementById('register-sexo-select').addEventListener('change', window.checkRegisterButtonState);
+            document.querySelector('[data-cy="input-register-name"]').addEventListener('input', window.checkRegisterButtonState);
+            document.querySelector('[data-cy="input-register-email"]').addEventListener('input', window.checkRegisterButtonState);
+            document.querySelector('[data-cy="input-register-password"]').addEventListener('input', window.checkRegisterButtonState);
+            document.querySelector('[data-cy="select-register-sexo"]').addEventListener('change', window.checkRegisterButtonState);
             
             // Listeners do Cadastro (Blur)
-            document.getElementById('register-name-input').addEventListener('blur', window.validateNameOnBlur);
-            document.getElementById('register-email-input').addEventListener('blur', window.validateEmailOnBlur);
-            document.getElementById('register-password-input').addEventListener('blur', window.validatePasswordOnBlur);
-            document.getElementById('register-sexo-select').addEventListener('blur', window.validateSexoOnBlur);
+            document.querySelector('[data-cy="input-register-name"]').addEventListener('blur', window.validateNameOnBlur);
+            document.querySelector('[data-cy="input-register-email"]').addEventListener('blur', window.validateEmailOnBlur);
+            document.querySelector('[data-cy="input-register-password"]').addEventListener('blur', window.validatePasswordOnBlur);
+            document.querySelector('[data-cy="select-register-sexo"]').addEventListener('blur', window.validateSexoOnBlur);
         }
-        // --- FIM DA CORREÇÃO ---
 
         window.onload = () => {
             initValidationListeners();
