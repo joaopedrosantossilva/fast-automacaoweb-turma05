@@ -1,4 +1,4 @@
-class loginPage {
+class LoginPageAntigo {
 
     visitar(){
         cy.visit('qa_bank.html')

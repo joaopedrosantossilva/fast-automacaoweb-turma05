@@ -1,4 +1,4 @@
-class loginPage {
+class LoginPage {
 
     visitar(){
         cy.visit('qa_bank.html')
@@ -51,4 +51,4 @@ class loginPage {
     }
 }
 
-export default new loginPage()
+export default new LoginPage()
