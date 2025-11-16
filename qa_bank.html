@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>QA Bank</title>
+    <title>QA Bank (IDs Dinâmicos)</title>
     
     <style>
         :root {
@@ -268,38 +268,34 @@
 
     <script>
         function generateRandomId(prefix) {
-            // Gera um ID aleatório, ex: "email_k29d1j0"
             return prefix + '_' + Math.random().toString(36).substring(2, 9);
         }
-
-        // Esta função IIFE (Immediately Invoked Function Expression) roda *antes* de tudo.
         (function scrambleIds() {
-            // Lista de IDs estáticos do HTML que queremos "quebrar"
             const idsToScramble = [
                 'email-input', 'password-input', 'btn-login', 'login-message',
                 'register-name-input', 'register-email-input', 'register-password-input',
                 'register-sexo-select', 'btn-register-submit', 'register-message',
                 'user-name-display', 'account-number-display', 'balance-total-value',
-                'saque-valor-input', 'transfer-destino-input', 'transfer-valor-input', 
-                'deposito-valor-input'
+                'saque-valor-input', 'saque-message', 'transfer-destino-input', 
+                'transfer-valor-input', 'transfer-message', 'deposito-valor-input', 'deposito-message'
             ];
             
-            // Adiciona um listener que roda assim que o DOM estiver pronto
             document.addEventListener('DOMContentLoaded', () => {
                 console.warn('*** SIMULAÇÃO: Randomizando IDs para a aula de automação... ***');
                 idsToScramble.forEach(staticId => {
                     const el = document.getElementById(staticId);
                     if (el) {
-                        const prefix = staticId.split('-')[0]; // Pega o prefixo (ex: "email")
+                        const prefix = staticId.split('-')[0];
                         const newId = generateRandomId(prefix);
-                        el.id = newId; // Substitui o ID estático por um dinâmico
+                        el.id = newId; 
                     }
                 });
                 console.warn('*** IDs randomizados. Use [data-cy] ou [name]! ***');
             });
         })();
     </script>
-    </head>
+
+</head>
 <body>
     
     <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
@@ -367,7 +363,7 @@
                     <a href="#" id="nav-transfer" class="nav-link" onclick="showView('transfer-view')" data-cy="nav-transferencia">🔄 Transferência</a>
                 </nav>
                 <div class="sidebar-footer">
-                     <button class="btn btn-block" data-cy="btn-logout" name="logout" onclick="logout()">Sair</button>
+                    <button class="btn btn-block" data-cy="btn-logout" name="logout" onclick="logout()">Sair</button>
                 </div>
             </div>
 
@@ -393,7 +389,7 @@
                     
                     <p>Saldo em Conta:</p>
                     
-                     <strong 
+                    <strong 
                       id="balance-total-value" 
                       class="balance-highlight" 
                       name="balance_total" 
@@ -415,12 +411,12 @@
                         <h2>Saque Imediato</h2>
                         <div class="form-group">
                             <label for="saque-valor-input">Valor:</label>
-                            <input type="number" id="saque-valor-input" class="form-input-valor" placeholder="R$ Ex: 500.00">
+                            <input type="number" id="saque-valor-input" class="form-input-valor" data-cy="input-saque-valor" placeholder="R$ Ex: 500.00">
                         </div>
                         <button class="btn btn-danger btn-block" data-cy="btn-sacar" onclick="saque()">
                             Realizar Saque
                         </button>
-                        <p id="saque-message" class="message" role="alert" style="display: none;"></p>
+                        <p id="saque-message" class="message" role="alert" style="display: none;" data-cy="saque-message"></p>
                     </div>
                 </div>
                 
@@ -433,12 +429,12 @@
                         </div>
                         <div class="form-group">
                             <label for="transfer-valor-input">Valor a Transferir:</label>
-                            <input type="number" id="transfer-valor-input" class="form-input-valor" placeholder="R$ Ex: 100.00">
+                            <input type="number" id="transfer-valor-input" class="form-input-valor" data-cy="input-transfer-valor" placeholder="R$ Ex: 100.00">
                         </div>
                         <button class="btn btn-primary btn-block" data-cy="btn-transferir" onclick="transfer()">
                             Transferir
                         </button>
-                        <p id="transfer-message" class="message" role="alert" style="display: none;"></p>
+                        <p id="transfer-message" class="message" role="alert" style="display: none;" data-cy="transfer-message"></p>
                     </div>
                 </div>
 
@@ -447,12 +443,12 @@
                         <h2>Depósito em Conta</h2>
                         <div class="form-group">
                             <label for="deposito-valor-input">Valor:</label>
-                            <input type="number" id="deposito-valor-input" class="form-input-valor" placeholder="R$ Ex: 100.00" style="border-left-color: var(--success-color);">
+                            <input type="number" id="deposito-valor-input" class="form-input-valor" data-cy="input-deposito-valor" placeholder="R$ Ex: 100.00" style="border-left-color: var(--success-color);">
                         </div>
                         <button class="btn btn-success btn-block" data-cy="btn-depositar" onclick="deposito()">
                             Realizar Depósito
                         </button>
-                        <p id="deposito-message" class="message" role="alert" style="display: none;"></p>
+                        <p id="deposito-message" class="message" role="alert" style="display: none;" data-cy="deposito-message"></p>
                     </div>
                 </div>
 
@@ -472,7 +468,6 @@
             
             if (!users[adminEmail]) {
                 const adminUser = {
-                    // ATUALIZADO: Senha com 6 dígitos
                     password: "admin123", 
                     name: "Admin do Sistema",
                     sexo: "OUTRO",
@@ -488,7 +483,6 @@
                 
                 console.log('*** USUÁRIO ADMIN [admin@qabank.com / admin123] CRIADO COM SUCESSO ***');
             } else {
-                 // Garante que a senha do admin esteja correta (6 dígitos)
                 if (users[adminEmail].password !== "admin123") {
                     users[adminEmail].password = "admin123";
                     localStorage.setItem(LOCAL_STORAGE_USERS, JSON.stringify(users));
@@ -496,7 +490,6 @@
                 }
             }
         })();
-
 
         // --- Funções de Gerenciamento do LocalStorage (Encapsuladas) ---
         (function() { 
@@ -520,7 +513,6 @@
                 data[accountNumber] = parseFloat(newBalance.toFixed(2));
                 localStorage.setItem(LOCAL_STORAGE_BALANCE, JSON.stringify(data));
             }
-            // Disponibiliza as funções globalmente para o app
             window.getUsers = getUsers;
             window.saveUsers = saveUsers;
             window.getAllBalances = getAllBalances;
@@ -529,12 +521,9 @@
             window.generateAccountNumber = () => Math.floor(100000 + Math.random() * 900000).toString();
         })();
 
-
         // --- Funções de Validação de Formulário (Encapsuladas) ---
-        // ATUALIZADO: Funções agora usam data-cy para não quebrarem com a randomização de IDs
         (function() {
             
-            // ATENÇÃO: Funções internas que usam o SELETOR ESTÁVEL (data-cy)
             const getEl = (cySelector) => document.querySelector(`[data-cy="${cySelector}"]`);
             const getErrorEl = (cySelector) => document.querySelector(`[data-cy="error-message-${cySelector.split('-').pop()}"]`);
 
@@ -564,7 +553,6 @@
                 return isValid || field.value.trim().length === 0;
             }
             
-            // Disponibiliza as funções globalmente
             window.validateLoginFields = validateLoginFields;
             window.checkRegisterButtonState = checkRegisterButtonState;
             window.validateNameOnBlur = () => validateField(
@@ -601,7 +589,6 @@
             };
         })();
 
-
         // --- Funções de Estado da Interface (UI) ---
         
         function showView(viewId) {
@@ -614,8 +601,6 @@
                 msg.textContent = '';
             });
 
-            // ATENÇÃO: Essas views ainda usam ID estático. 
-            // Para a aula de LOGIN, isso não é um problema.
             const view = document.getElementById(viewId);
             if (view) {
                 view.style.display = 'block';
@@ -625,7 +610,6 @@
                 link.classList.remove('active');
             });
             
-            // O ID dos links de navegação também são estáticos
             const activeLink = document.getElementById(`nav-${viewId.split('-')[0]}`);
             if (activeLink) {
                 activeLink.classList.add('active');
@@ -633,7 +617,6 @@
         }
 
         function showRegister(show) {
-            // ATUALIZADO: Usa seletores estáveis
             const loginCard = document.querySelector('[data-cy="login-card"]');
             const registerCard = document.querySelector('[data-cy="register-card"]');
             
@@ -677,8 +660,7 @@
             const authContainer = document.getElementById('auth-container');
             const appSection = document.getElementById('app');
             
-            // ATUALIZADO: Usa seletores estáveis
-            const balanceSpan = document.getElementById('account-balance'); // Este ID é estável
+            const balanceSpan = document.getElementById('account-balance');
             const nameSpan = document.querySelector('[data-cy="user-name-display"]');
             const accountSpan = document.querySelector('[data-cy="account-number-display"]');
 
@@ -697,6 +679,13 @@
                     logout();
                     return;
                 }
+                
+                // *** CORREÇÃO DO BUG "TypeError" ***
+                // As linhas abaixo foram comentadas pois os IDs são randomizados
+                // document.getElementById('saque-valor-input').value = '';
+                // document.getElementById('transfer-destino-input').value = '';
+                // document.getElementById('transfer-valor-input').value = '';
+                // document.getElementById('deposito-valor-input').value = '';
 
                 showView('home-view');
 
@@ -712,13 +701,11 @@
         }
 
         // --- Ações da Aplicação (Event Handlers) ---
-        (function() { // Funções encapsuladas
+        (function() {
             
-            // ATUALIZADO: Funções internas que usam o SELETOR ESTÁVEL (data-cy)
             const getEl = (cySelector) => document.querySelector(`[data-cy="${cySelector}"]`);
             
             function register() {
-                // *** CORREÇÃO: Busca o elemento de mensagem pelo data-cy ***
                 const msgEl = getEl('register-message');
                 msgEl.style.display = 'none';
                 if (!validateNameOnBlur() || !validateEmailOnBlur() || !validatePasswordOnBlur() || !validateSexoOnBlur()) return;
@@ -732,7 +719,7 @@
                 const users = getUsers();
                 if (users[email]) {
                     msgEl.style.display = 'block';
-                    msgEl.textContent = 'Email já cadastrado. Utilize o Login.';
+                    msgEl.textContent = 'Email já cadastrado.';
                     return;
                 }
                 let accountNumber;
@@ -746,7 +733,6 @@
                 msgEl.className = 'message success';
                 msgEl.style.display = 'block';
                 msgEl.textContent = `Conta criada com sucesso! Seu Número de Conta é: ${accountNumber}. Volte para o Login.`;
- 
                 
                 getEl('input-register-name').value = '';
                 getEl('input-register-email').value = '';
@@ -757,7 +743,6 @@
             function login() {
                 const email = getEl('input-login-email').value;
                 const password = getEl('input-login-password').value;
-                // *** CORREÇÃO: Busca o elemento de mensagem pelo data-cy ***
                 const msgEl = getEl('login-message');
                 msgEl.className = 'message error';
                 msgEl.style.display = 'block';
@@ -782,10 +767,8 @@
             }
             function saque() {
                 const userAccount = localStorage.getItem('authUserAccountNumber');
-                // ATENÇÃO: Esses IDs são randomizados. O app real precisaria de data-cy aqui também.
-                // Para a aula de LOGIN, não vamos nos preocupar com essas funções.
-                const valor = parseFloat(document.querySelector('[id^="saque_"]').value);
-                const msgEl = document.getElementById('saque-message');
+                const valor = parseFloat(document.querySelector('[data-cy="input-saque-valor"]').value);
+                const msgEl = document.querySelector('[data-cy="saque-message"]');
                 msgEl.className = 'message error';
                 msgEl.style.display = 'block';
                 if (!userAccount) { msgEl.textContent = 'Erro de sessão. Faça login novamente.'; return; }
@@ -796,17 +779,20 @@
                     setBalance(userAccount, currentBalance);
                     msgEl.className = 'message success';
                     msgEl.textContent = `Saque de R$ ${valor.toFixed(2).replace('.', ',')} realizado com sucesso.`;
-                    updateUI();
-                    document.querySelector('[id^="saque_"]').value = '';
+                    
+                    // --- CORREÇÃO (NÃO VOLTA MAIS PARA HOME) ---
+                    document.getElementById('account-balance').textContent = getBalance(userAccount).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+                    
+                    document.querySelector('[data-cy="input-saque-valor"]').value = '';
                 } else {
                     msgEl.textContent = 'Saldo insuficiente para esta operação.';
                 }
             }
             function transfer() {
                 const origemAccount = localStorage.getItem('authUserAccountNumber');
-                const destinoAccount = document.querySelector('[id^="transfer_destino"]').value;
-                const valor = parseFloat(document.querySelector('[id^="transfer_valor"]').value);
-                const msgEl = document.getElementById('transfer-message');
+                const destinoAccount = document.querySelector('[data-cy="input-transfer-destino"]').value;
+                const valor = parseFloat(document.querySelector('[data-cy="input-transfer-valor"]').value);
+                const msgEl = document.querySelector('[data-cy="transfer-message"]');
                 msgEl.className = 'message error';
                 msgEl.style.display = 'block';
                 if (isNaN(valor) || valor <= 0 || destinoAccount === '') { msgEl.textContent = 'Verifique valor e número da Conta de Destino.'; return; }
@@ -823,14 +809,16 @@
                     setBalance(destinoAccount, destinoBalance);
                     msgEl.className = 'message success';
                     msgEl.textContent = `Transferência de R$ ${valor.toFixed(2).replace('.', ',')} para a conta ${destinoAccount} concluída.`;
-                    updateUI();
-                    document.querySelector('[id^="transfer_destino"]').value = '';
-                    document.querySelector('[id^="transfer_valor"]').value = '';
+                    
+                    // --- CORREÇÃO (NÃO VOLTA MAIS PARA HOME) ---
+                    document.getElementById('account-balance').textContent = getBalance(origemAccount).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+                    
+                    document.querySelector('[data-cy="input-transfer-destino"]').value = '';
+                    document.querySelector('[data-cy="input-transfer-valor"]').value = '';
                 } else {
                     msgEl.textContent = 'Saldo insuficiente para realizar a transferência.';
                 }
             }
-            // Disponibiliza as funções globalmente
             window.register = register;
             window.login = login;
             window.logout = logout;
@@ -840,8 +828,8 @@
         
         function deposito() {
             const userAccount = localStorage.getItem('authUserAccountNumber');
-            const valor = parseFloat(document.querySelector('[id^="deposito_"]').value);
-            const msgEl = document.getElementById('deposito-message');
+            const valor = parseFloat(document.querySelector('[data-cy="input-deposito-valor"]').value);
+            const msgEl = document.querySelector('[data-cy="deposito-message"]');
             msgEl.className = 'message error';
             msgEl.style.display = 'block';
 
@@ -861,25 +849,25 @@
 
             msgEl.className = 'message success';
             msgEl.textContent = `Depósito de R$ ${valor.toFixed(2).replace('.', ',')} realizado com sucesso.`;
-            updateUI();
-            document.querySelector('[id^="deposito_"]').value = '';
+            
+            // --- CORREÇÃO (NÃO VOLTA MAIS PARA HOME) ---
+            document.getElementById('account-balance').textContent = getBalance(userAccount).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+            
+            document.querySelector('[data-cy="input-deposito-valor"]').value = '';
         }
         
         // --- Inicialização da Aplicação ---
         
         function initValidationListeners() {
             
-            // Listeners do Login
             document.querySelector('[data-cy="input-login-email"]').addEventListener('input', window.validateLoginFields);
             document.querySelector('[data-cy="input-login-password"]').addEventListener('input', window.validateLoginFields);
             
-            // Listeners do Cadastro (Habilita botão)
             document.querySelector('[data-cy="input-register-name"]').addEventListener('input', window.checkRegisterButtonState);
             document.querySelector('[data-cy="input-register-email"]').addEventListener('input', window.checkRegisterButtonState);
             document.querySelector('[data-cy="input-register-password"]').addEventListener('input', window.checkRegisterButtonState);
             document.querySelector('[data-cy="select-register-sexo"]').addEventListener('change', window.checkRegisterButtonState);
             
-            // Listeners do Cadastro (Blur)
             document.querySelector('[data-cy="input-register-name"]').addEventListener('blur', window.validateNameOnBlur);
             document.querySelector('[data-cy="input-register-email"]').addEventListener('blur', window.validateEmailOnBlur);
             document.querySelector('[data-cy="input-register-password"]').addEventListener('blur', window.validatePasswordOnBlur);
