@@ -23,3 +23,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+Cypress.Commands.add('loginAdminViaStorage', () => {
+    const adminUser = { email: "admin@qabank.com", accountNumber: "000001" };
+    cy.window().then((win) => {
+        win.localStorage.setItem('authToken', `token_test_${adminUser.email}`);
+        win.localStorage.setItem('authUserAccountNumber', adminUser.accountNumber);
+    });
+});
